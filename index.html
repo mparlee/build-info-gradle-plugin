@@ -14,7 +14,7 @@
 <div id="header">
 <h1>Build-Info Gradle Plugin</h1>
 <div class="details">
-<span id="revnumber">version 0.0.2</span>
+<span id="revnumber">version 0.0.3-SNAPSHOT</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
@@ -67,7 +67,7 @@
 <p>If a META-INF/build-info.properties file is available on the classpath, <a href="https://micronaut.io">Micronaut framework</a>'s <a href="https://docs.micronaut.io/latest/api/io/micronaut/management/endpoint/info/source/BuildInfoSource.html">BuildInfoSource</a> exposes the values in that file under the <code>build</code> key.</p>
 </div>
 <div class="paragraph">
-<p>This Gradle plugin adds a task <code>generateBuildInfo</code> which is executed before the <code>classes</code> task. The task generates a <code>build-info.properties</code> file at <code>build/classes/java/META-INFO/build-info.properties</code>. The generated properties file includes <code>version</code>, <code>name</code>, <code>group</code> and optionally <code>buildid</code>. <code>buildid</code> is set to value of any of the following environment variables (<a href="https://docs.travis-ci.com/user/environment-variables/#default-environment-variables">TRAVIS_BUILD_ID</a>, <code>GITHUB_RUN_ID</code>, <code>CODEBUILD_BUILD_ID</code>).</p>
+<p>This Gradle plugin adds a task <code>generateBuildInfo</code> which is executed before the <code>classes</code> task. The task generates a <code>build-info.properties</code> file at <code>build/classes/java/META-INFO/build-info.properties</code>. The generated properties file includes <code>version</code>, <code>name</code>, <code>group</code> and optionally <code>buildid</code> and <code>commitsha</code>. <code>buildid</code> is set to value of any of the following environment variables (<a href="https://docs.travis-ci.com/user/environment-variables/#default-environment-variables">TRAVIS_BUILD_ID</a>, <code>GITHUB_RUN_ID</code>, <code>CODEBUILD_BUILD_ID</code>, <code>BUILD_ID</code>).</p>
 </div>
 </div>
 </div>
@@ -100,7 +100,7 @@
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">plugins {
   ...
-  id <span class="string"><span class="delimiter">&quot;</span><span class="content">groovycalamari.build-info</span><span class="delimiter">&quot;</span></span> version <span class="string"><span class="delimiter">&quot;</span><span class="content">0.0.2</span><span class="delimiter">&quot;</span></span>
+  id <span class="string"><span class="delimiter">&quot;</span><span class="content">groovycalamari.build-info</span><span class="delimiter">&quot;</span></span> version <span class="string"><span class="delimiter">&quot;</span><span class="content">0.0.3</span><span class="delimiter">&quot;</span></span>
 }</code></pre>
 </div>
 </div>
@@ -153,6 +153,10 @@
 <td class="tableblock halign-left valign-top"><p class="tableblock">groupKey</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>group</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">commitShaKey</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>commitsha</code></p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -166,6 +170,7 @@
     versionKey = <span class="string"><span class="delimiter">'</span><span class="content">version</span><span class="delimiter">'</span></span>
     nameKey = <span class="string"><span class="delimiter">'</span><span class="content">name</span><span class="delimiter">'</span></span>
     groupKey = <span class="string"><span class="delimiter">'</span><span class="content">group</span><span class="delimiter">'</span></span>
+    commitShaKey = <span class="string"><span class="delimiter">'</span><span class="content">commitsha</span><span class="delimiter">'</span></span>
 }</code></pre>
 </div>
 </div>
@@ -195,8 +200,8 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 0.0.2<br>
-Last updated 2020-10-06 15:06:23 UTC
+Version 0.0.3-SNAPSHOT<br>
+Last updated 2021-02-11 18:11:34 UTC
 </div>
 </div>
 <link rel="stylesheet" href="./coderay-asciidoctor.css">
