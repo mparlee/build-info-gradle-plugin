@@ -28,4 +28,6 @@ interface BuildInfoValues {
     String getName()
 
     String getCommitSha()
+
+    String getTagName()
 }

@@ -30,6 +30,7 @@ class BuildInfoExtension {
     public static final String DEFAULT_KEY_GROUP = "group"
     public static final String DEFAULT_KEY_NAME = "name"
     public static final String DEFAULT_KEY_COMMIT_SHA = "commitsha"
+    public static final String DEFAULT_KEY_TAG_NAME = "tagname"
 
     final DirectoryProperty outputDirectory
 
@@ -42,6 +43,8 @@ class BuildInfoExtension {
     final Property<String> buildIdKey
 
     final Property<String> commitShaKey
+
+    final Property<String> tagNameKey
 
     BuildInfoExtension(Project project) {
         outputDirectory = project.objects.directoryProperty()
@@ -56,5 +59,7 @@ class BuildInfoExtension {
                 .convention(DEFAULT_KEY_NAME)
         commitShaKey = project.objects.property(String)
                 .convention(DEFAULT_KEY_COMMIT_SHA)
+        tagNameKey = project.objects.property(String)
+                .convention(DEFAULT_KEY_TAG_NAME)
     }
 }

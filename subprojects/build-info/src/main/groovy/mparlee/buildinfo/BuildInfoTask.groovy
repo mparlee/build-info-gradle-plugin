@@ -37,6 +37,7 @@ class BuildInfoTask extends DefaultTask {
     public static final String CODEBUILD_BUILD_ID = "CODEBUILD_BUILD_ID"
     public static final String GENERIC_BUILD_ID = "BUILD_ID"
     public static final String COMMIT_SHA = "COMMIT_SHA"
+    public static final String TAG_NAME = "TAG_NAME"
 
     @OutputDirectory
     final DirectoryProperty outputDirectory
@@ -57,6 +58,9 @@ class BuildInfoTask extends DefaultTask {
     final Property<String> commitShaKey
 
     @Input
+    final Property<String> tagNameKey
+
+    @Input
     @Optional
     final Provider<String> buildIdProvider
 
@@ -73,6 +77,10 @@ class BuildInfoTask extends DefaultTask {
     @Optional
     final Provider<String> commitShaProvider
 
+    @Input
+    @Optional
+    final Provider<String> tagNameProvider
+
     BuildInfoTask() {
         outputDirectory = project.objects.directoryProperty()
         versionKey = project.objects.property(String)
@@ -80,11 +88,13 @@ class BuildInfoTask extends DefaultTask {
         groupKey = project.objects.property(String)
         buildIdKey = project.objects.property(String)
         commitShaKey = project.objects.property(String)
+        tagNameKey = project.objects.property(String)
         buildIdProvider = envVar(TRAVIS_BUILD_ID)
             .orElse(envVar(GITHUB_BUILD_ID))
             .orElse(envVar(CODEBUILD_BUILD_ID))
             .orElse(envVar(GENERIC_BUILD_ID))
         commitShaProvider = envVar(COMMIT_SHA)
+        tagNameProvider = envVar(TAG_NAME)
         versionProvider = project.providers.provider { String.valueOf(project.version) }.forUseAtConfigurationTime()
         groupProvider = project.providers.provider { String.valueOf(project.group) }.forUseAtConfigurationTime()
         nameProvider = project.providers.provider { project.name }.forUseAtConfigurationTime()
@@ -131,6 +141,11 @@ class BuildInfoTask extends DefaultTask {
             String getCommitSha() {
                 commitShaKey.get()
             }
+
+            @Override
+            String getTagName() {
+                tagNameKey.get()
+            }
         }
     }
 
@@ -160,6 +175,11 @@ class BuildInfoTask extends DefaultTask {
             String getCommitSha() {
                 commitShaProvider.orNull
             }
+
+            @Override
+            String getTagName() {
+                tagNameProvider.orNull
+            }
         }
     }
 
@@ -170,6 +190,9 @@ class BuildInfoTask extends DefaultTask {
         }
         if (values.commitSha) {
             props.setProperty(labels.commitSha, values.commitSha)
+        }
+        if (values.tagName) {
+            props.setProperty(labels.tagName, values.tagName)
         }
         props.setProperty(labels.name, values.name)
         props.setProperty(labels.group, values.group)

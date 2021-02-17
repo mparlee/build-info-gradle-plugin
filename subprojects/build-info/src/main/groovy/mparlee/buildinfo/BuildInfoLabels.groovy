@@ -28,4 +28,6 @@ interface BuildInfoLabels {
     String getName()
 
     String getCommitSha()
+
+    String getTagName()
 }
