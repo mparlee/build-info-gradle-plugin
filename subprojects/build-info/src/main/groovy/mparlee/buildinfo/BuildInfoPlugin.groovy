@@ -45,6 +45,7 @@ class BuildInfoPlugin implements Plugin<Project> {
                 buildInfo.groupKey.convention(extension.groupKey)
                 buildInfo.buildIdKey.convention(extension.buildIdKey)
                 buildInfo.commitShaKey.convention(extension.commitShaKey)
+                buildInfo.tagNameKey.convention(extension.tagNameKey)
             }
         })
         project.pluginManager.withPlugin('java') {
