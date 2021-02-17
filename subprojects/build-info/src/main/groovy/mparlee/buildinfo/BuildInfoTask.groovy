@@ -191,6 +191,9 @@ class BuildInfoTask extends DefaultTask {
         if (values.commitSha) {
             props.setProperty(labels.commitSha, values.commitSha)
         }
+        if (values.tagName) {
+            props.setProperty(labels.tagName, values.tagName)
+        }
         props.setProperty(labels.name, values.name)
         props.setProperty(labels.group, values.group)
         props.setProperty(labels.version, values.version)
